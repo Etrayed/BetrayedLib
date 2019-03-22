@@ -4,6 +4,7 @@ import de.etrayed.betrayedlib.reflectionhelp.util.ReflectiveException;
 import de.etrayed.betrayedlib.reflectionhelp.util.WrappedClass;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * (JavaDoc)
@@ -13,8 +14,7 @@ import java.lang.reflect.Constructor;
  * <p>
  * © Etrayed 2019
  */
-@SuppressWarnings("unchecked")
-public class ConstructorHelper extends AbstractHelper {
+public final class ConstructorHelper extends AbstractHelper {
 
     public ConstructorHelper() {
         super();
@@ -23,7 +23,7 @@ public class ConstructorHelper extends AbstractHelper {
     public Constructor<?> getConstructor(final WrappedClass<?> wrappedClass, final Class<?>... parameters) {
         try {
             return wrappedClass.getInstance().getConstructor(parameters);
-        } catch (ReflectiveOperationException e) {
+        } catch (NoSuchMethodException e) {
             throw new ReflectiveException(e);
         }
     }
@@ -31,7 +31,7 @@ public class ConstructorHelper extends AbstractHelper {
     public Constructor<?> getDeclaredConstructor(final WrappedClass<?> wrappedClass, final Class<?>... parameters) {
         try {
             return wrappedClass.getInstance().getConstructor(parameters);
-        } catch (ReflectiveOperationException e) {
+        } catch (NoSuchMethodException e) {
             throw new ReflectiveException(e);
         }
     }
@@ -39,7 +39,7 @@ public class ConstructorHelper extends AbstractHelper {
     public <T> T newInstance(final Constructor<T> constructor, final Object... parameters) {
         try {
             return constructor.newInstance(parameters);
-        } catch (ReflectiveOperationException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new ReflectiveException(e);
         }
     }

@@ -153,4 +153,17 @@ public enum Modifier {
 
         return new Modifier[0];
     }
+
+    public static int modifiersToInt(final Modifier[] modifiers) {
+        int i = 0;
+
+        for (Modifier modifier : modifiers)
+            i |= modifier.intValue;
+
+        return i;
+    }
+
+    public static int removeModifier(final int modifiers, final Modifier modifier) {
+        return modifiers &~ modifier.intValue;
+    }
 }
