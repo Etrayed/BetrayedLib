@@ -11,6 +11,8 @@
     <modules>
         <module>HelpfulInterfaces</module>
         <module>ReflectionHelp</module>
+        <module>NMS</module>
+        <module>BukkitCommandAPI</module>
     </modules>
 
     <build>
