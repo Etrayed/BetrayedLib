@@ -12,21 +12,24 @@ class CommandMethodExecutor {
 
     private final CommandSender commandSender;
     private final Command command;
+    private final String commandLabel;
     private final String[] args;
 
-    private int commandSenderIndex = -1, commandIndex = -1, argsIndex = -1;
+    private int commandSenderIndex = -1, commandIndex = -1, labelIndex = -1, argsIndex = -1;
 
     private Method method;
 
-    CommandMethodExecutor(final CommandSender commandSender, final Command command, final String[] args) {
+    CommandMethodExecutor(final CommandSender commandSender, final Command command,
+                          final String commandLabel, final String[] args) {
         this.commandSender = commandSender;
         this.command = command;
+        this.commandLabel = commandLabel;
         this.args = args;
     }
 
     void prepareExecution(final Method method) {
-        if(method.getParameterCount() > 3)
-            throw new IllegalArgumentException("Method parameters of a @CommandMethod marked method cannot be more than 3!");
+        if(method.getParameterCount() > 4)
+            throw new IllegalArgumentException("Method parameters of a @CommandMethod marked method cannot be more than 4!");
 
         for (int i = 0; i < method.getParameterCount(); i++) {
             final Class<?> parameterClass = method.getParameterTypes()[i];
@@ -37,6 +40,8 @@ class CommandMethodExecutor {
                 commandIndex = i;
             } else if(String[].class.isAssignableFrom(parameterClass)) {
                 argsIndex = i;
+            } else if(String.class.isAssignableFrom(parameterClass)) {
+                labelIndex = i;
             }
         }
 
@@ -44,7 +49,7 @@ class CommandMethodExecutor {
     }
 
     void execute(final Object commandMethodHolderInstance) throws ReflectiveOperationException {
-        final Object[] parameters = new Object[3];
+        final Object[] parameters = new Object[4];
 
         int realParameterCount = 0;
 
@@ -56,6 +61,12 @@ class CommandMethodExecutor {
 
         if(commandIndex != -1) {
             parameters[commandIndex] = command;
+
+            realParameterCount++;
+        }
+
+        if(labelIndex != -1) {
+            parameters[labelIndex] = commandLabel;
 
             realParameterCount++;
         }
@@ -74,6 +85,8 @@ class CommandMethodExecutor {
             method.invoke(commandMethodHolderInstance, parameters[0], parameters[1]);
         } else if(realParameterCount == 3) {
             method.invoke(commandMethodHolderInstance, parameters[0], parameters[1], parameters[2]);
+        } else if(realParameterCount == 4) {
+            method.invoke(commandMethodHolderInstance, parameters[0], parameters[1], parameters[2], parameters[3]);
         }
     }
 }

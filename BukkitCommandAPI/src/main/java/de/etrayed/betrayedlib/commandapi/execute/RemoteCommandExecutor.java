@@ -44,7 +44,8 @@ public class RemoteCommandExecutor implements CommandExecutor {
             }
         }
 
-        final CommandMethodExecutor commandMethodExecutor = new CommandMethodExecutor(commandSender, command, strings);
+        final CommandMethodExecutor commandMethodExecutor
+                = new CommandMethodExecutor(commandSender, command, s, strings);
 
         commandMethodExecutor.prepareExecution(method);
 

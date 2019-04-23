@@ -15,7 +15,8 @@ import java.lang.annotation.Target;
  *     Important: <br>
  *     - You can your method like whatever you want! <br>
  *     - You can use the parameter types {@link org.bukkit.command.CommandSender CommandSender},
- *     {@link org.bukkit.command.Command Command}, {@link String}[] only and however you want!
+ *     {@link org.bukkit.command.Command Command}, {@link String} and {@link String}[] only and however you want!
+ *     - The {@link String} returns the used command label.
  *
  * <pre>
  *     {@code
@@ -67,4 +68,12 @@ public @interface CommandMethod {
      * @return the custom "NoPermission" message, if configured.
      */
     String customNoPermissionMessage() default "";
+
+    /**
+     *
+     * If true, the {@link org.bukkit.command.Command Command} can only be executed by a player.
+     *
+     * @return if it should.
+     */
+    boolean blockConsoleCommandSenders();
 }
