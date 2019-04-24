@@ -41,15 +41,6 @@ import java.lang.annotation.Target;
  *     {@link org.bukkit.command.Command Command}, {@link String} and {@link String}[] only and however you want!
  *     - The {@link String} returns the used command label.
  *
- * <pre>
- *     {@code
- *     @CommandMethod(name = "myCommand")
- *     public void myCommand(final CommandSender commandSender, final String[] args) {
- *         // your code
- *     }
- *     }
- * </pre>
- *
  * @author Etrayed
  *
  * @see CommandAPI
