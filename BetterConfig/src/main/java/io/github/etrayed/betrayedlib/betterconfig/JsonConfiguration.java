@@ -1,29 +1,31 @@
-package io.github.betrayedlib.betterconfig;
+package io.github.etrayed.betrayedlib.betterconfig;
 
-import org.yaml.snakeyaml.Yaml;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Etrayed
  */
 @SuppressWarnings("WeakerAccess")
-public class YamlConfiguration extends AbstractConfiguration<Object, Object> {
+public class JsonConfiguration extends AbstractConfiguration<JsonElement, JsonElement > {
 
-    public static final Yaml YAML;
+    public static final Gson GSON;
 
-    private final Map<String, Object> keyValues;
+    private final JsonObject jsonObject;
 
-    public YamlConfiguration(final File file) {
+    public JsonConfiguration(final File file) {
         super(file);
 
         try {
             final FileReader fileReader = new FileReader(file);
 
-            keyValues = YAML.load(fileReader);
+            this.jsonObject = GSON.fromJson(fileReader, JsonObject.class);
 
             fileReader.close();
         } catch (IOException e) {
@@ -36,7 +38,7 @@ public class YamlConfiguration extends AbstractConfiguration<Object, Object> {
         try {
             final FileWriter fileWriter = new FileWriter(file);
 
-            YAML.dump(keyValues, fileWriter);
+            GSON.toJson(jsonObject, fileWriter);
 
             fileWriter.close();
         } catch (IOException e) {
@@ -45,35 +47,35 @@ public class YamlConfiguration extends AbstractConfiguration<Object, Object> {
     }
 
     @Override
-    public Object getValue(String path) {
-        return keyValues.get(path);
+    public JsonElement getValue(String path) {
+        return jsonObject.get(path);
     }
 
     @Override
-    public void setValue(String path, Object input) {
-        keyValues.put(path, input);
+    public void setValue(String path, JsonElement input) {
+        jsonObject.add(path, input);
 
         this.save();
     }
 
     @Override
     public boolean hasValue(String path) {
-        return keyValues.containsKey(path);
+        return jsonObject.has(path);
     }
 
     @Override
     public void removeValue(String path) {
-        keyValues.remove(path);
+        jsonObject.remove(path);
 
         this.save();
     }
 
     @Override
     public List<String> listValues() {
-        return new ArrayList<>(keyValues.keySet());
+        return new ArrayList<>(jsonObject.keySet());
     }
 
     static {
-        YAML = new Yaml();
+        GSON = new GsonBuilder().setPrettyPrinting().create();
     }
 }
