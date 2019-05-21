@@ -8,6 +8,8 @@ import com.google.gson.JsonObject;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Etrayed
@@ -72,7 +74,13 @@ public class JsonConfiguration extends AbstractConfiguration<JsonElement, JsonEl
 
     @Override
     public List<String> listValues() {
-        return new ArrayList<>(jsonObject.keySet());
+        final List<String> values = new ArrayList<>();
+
+        for (final Map.Entry<String, JsonElement> stringJsonElementEntry : jsonObject.entrySet()) {
+            values.add(stringJsonElementEntry.getKey());
+        }
+
+        return values;
     }
 
     static {
