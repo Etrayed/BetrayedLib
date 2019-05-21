@@ -69,6 +69,7 @@ class CommandMethodExecutor {
         }
 
         this.method = method;
+        this.method.setAccessible(true);
     }
 
     void execute(final Object commandMethodHolderInstance) throws ReflectiveOperationException {
