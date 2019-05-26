@@ -65,7 +65,7 @@ public class CommandAPI {
                             Objects.requireNonNull(javaPlugin, "javaPlugin cannot be null!"),
                             method, commandMethod);
                 } catch (ReflectiveOperationException e) {
-                    System.err.println("An unexpected error occurred! Please report it!");
+                    System.err.println("WARNING: An unexpected error occurred! Please report it!");
                     e.printStackTrace();
                 }
             }

@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package io.github.etrayed.betrayedlib.commandapi.execute;
 
+import com.google.common.base.Preconditions;
 import io.github.etrayed.betrayedlib.commandapi.CommandAPI;
 import io.github.etrayed.betrayedlib.commandapi.annotation.CommandMethod;
 
@@ -48,6 +49,10 @@ public class RemoteCommandExecutor implements CommandExecutor {
         this.commandMethodHolderInstance = commandMethodHolderInstance;
         this.method = method;
         this.commandMethod = commandMethod;
+
+        Preconditions.checkArgument(javaPlugin.getCommand(commandMethod.name()) != null,
+                "Command \"" + commandMethod.name() + "\" is not registered in the plugin.yml of \""
+                        + javaPlugin.getDescription().getName() + "\".");
 
         javaPlugin.getCommand(commandMethod.name()).setExecutor(this);
     }
