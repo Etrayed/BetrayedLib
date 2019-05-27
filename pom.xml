@@ -13,6 +13,7 @@
         <module>ReflectionHelp</module>
         <module>BukkitCommandAPI</module>
         <module>BetterConfig</module>
+        <module>BukkitCountdownAPI</module>
     </modules>
 
     <build>
