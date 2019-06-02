@@ -35,7 +35,7 @@ import java.util.function.Consumer;
 /**
  * @author Etrayed
  */
-abstract class AbstractCountdown implements Countdown {
+public abstract class AbstractCountdown implements Countdown {
 
     private final Consumer<Long> runAction;
 
@@ -83,7 +83,7 @@ abstract class AbstractCountdown implements Countdown {
 
     @Override
     public boolean canSpeedUp() {
-        return (seconds - speedUpTimestamp) > 2;
+        return active && (seconds - speedUpTimestamp) > 2;
     }
 
     @Override

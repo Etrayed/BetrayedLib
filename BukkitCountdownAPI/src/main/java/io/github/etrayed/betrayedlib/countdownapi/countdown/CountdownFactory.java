@@ -65,7 +65,7 @@ public class CountdownFactory {
             public void accept(final Long l) {
                 if(countdownConfiguration.hasActionAt(l)) {
                     for (final ExecutableAction executableAction : countdownConfiguration.collectActionsAt(l)) {
-                        executableAction.execute();
+                        executableAction.execute(countdownConfiguration.getPlugin());
                     }
                 }
 

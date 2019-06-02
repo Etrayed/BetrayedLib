@@ -31,6 +31,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 /**
  * @author Etrayed
@@ -67,26 +68,32 @@ public class FixedExecutableAction implements ExecutableAction {
     }
 
     @Override
-    public void execute() {
-        if (executableActionType.equals(ExecutableActionType.MESSAGE)) {
-            Bukkit.broadcastMessage(String.valueOf(value));
-        } else if (executableActionType.equals(ExecutableActionType.TITLE)) {
-            for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                sendTitle(onlinePlayer);
+    public void execute(final Plugin plugin) {
+        Bukkit.getScheduler().runTask(plugin, new Runnable() {
+
+            @Override
+            public void run() {
+                if (executableActionType.equals(ExecutableActionType.MESSAGE)) {
+                    Bukkit.broadcastMessage(String.valueOf(value));
+                } else if (executableActionType.equals(ExecutableActionType.TITLE)) {
+                    for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                        sendTitle(onlinePlayer);
+                    }
+                } else if (executableActionType.equals(ExecutableActionType.SUBTITLE)) {
+                    for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                        sendSubTitle(onlinePlayer);
+                    }
+                } else if (executableActionType.equals(ExecutableActionType.ACTIONBAR)) {
+                    for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                        sendActionBar(onlinePlayer);
+                    }
+                } else if (executableActionType.equals(ExecutableActionType.SOUND)) {
+                    for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                        onlinePlayer.playSound(onlinePlayer.getLocation(), (Sound) value, 10F, 1F);
+                    }
+                }
             }
-        } else if (executableActionType.equals(ExecutableActionType.SUBTITLE)) {
-            for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                sendSubTitle(onlinePlayer);
-            }
-        } else if (executableActionType.equals(ExecutableActionType.ACTIONBAR)) {
-            for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                sendActionBar(onlinePlayer);
-            }
-        } else if (executableActionType.equals(ExecutableActionType.SOUND)) {
-            for (final Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                onlinePlayer.playSound(onlinePlayer.getLocation(), (Sound) value, 10F, 1F);
-            }
-        }
+        });
     }
 
     private void sendTitle(final Player player) {

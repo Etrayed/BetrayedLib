@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 /**
  * @author Etrayed
  */
-class AsyncCountdown extends AbstractCountdown {
+public class AsyncCountdown extends AbstractCountdown {
 
     private ScheduledExecutorService scheduledExecutorService;
 

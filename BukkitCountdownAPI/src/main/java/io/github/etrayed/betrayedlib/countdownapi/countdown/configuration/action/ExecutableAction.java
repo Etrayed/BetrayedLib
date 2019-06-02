@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package io.github.etrayed.betrayedlib.countdownapi.countdown.configuration.action;
 
+import org.bukkit.plugin.Plugin;
+
 /**
  * @author Etrayed
  */
@@ -30,5 +32,5 @@ public interface ExecutableAction {
 
     int getIdentifier();
 
-    void execute();
+    void execute(final Plugin plugin);
 }

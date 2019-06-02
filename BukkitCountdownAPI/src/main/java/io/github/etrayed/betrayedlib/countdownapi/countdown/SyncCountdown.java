@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 /**
  * @author Etrayed
  */
-class SyncCountdown extends AbstractCountdown {
+public class SyncCountdown extends AbstractCountdown {
 
     private BukkitTask bukkitTask;
 
