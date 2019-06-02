@@ -14,6 +14,7 @@
         <module>BukkitCommandAPI</module>
         <module>BetterConfig</module>
         <module>BukkitCountdownAPI</module>
+        <module>BukkitInventoryAPI</module>
     </modules>
 
     <build>
