@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package io.github.etrayed.betrayedlib.countdownapi.countdown.configuration.action;
 
+import org.bukkit.plugin.Plugin;
+
 /**
  * @author Etrayed
  */
@@ -47,7 +49,7 @@ public class CustomExecutableAction implements ExecutableAction {
     }
 
     @Override
-    public void execute() {
+    public void execute(final Plugin unused) {
         customAction.run();
     }
 }
