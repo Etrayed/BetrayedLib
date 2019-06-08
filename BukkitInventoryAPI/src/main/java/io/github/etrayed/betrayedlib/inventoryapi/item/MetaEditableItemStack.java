@@ -24,7 +24,7 @@ public class MetaEditableItemStack extends ItemStack {
     }
 
     public MetaEditableItemStack(final Material type, final short subId) {
-        this(type, 0, subId);
+        this(type, 1, subId);
     }
 
     public MetaEditableItemStack(final Material type, final int amount, final short subId) {
