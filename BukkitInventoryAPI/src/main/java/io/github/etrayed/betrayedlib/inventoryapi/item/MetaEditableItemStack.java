@@ -45,7 +45,7 @@ public class MetaEditableItemStack extends ItemStack {
         ITEM_STACK_CACHE.put("deco_light", new MetaEditableItemStack(Material.STAINED_GLASS_PANE, (short) 7)
                 .openItemMetaEditor().setDisplayName("").saveChanges());
 
-        ITEM_STACK_CACHE.put("deco_dark", new MetaEditableItemStack(Material.STAINED_GLASS_PANE, (short) 8)
+        ITEM_STACK_CACHE.put("deco_dark", new MetaEditableItemStack(Material.STAINED_GLASS_PANE, (short) 15)
                 .openItemMetaEditor().setDisplayName("").saveChanges());
     }
 }
