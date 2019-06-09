@@ -46,9 +46,9 @@ public class MetaEditableItemStack extends ItemStack implements Cloneable {
         ITEM_STACK_CACHE = Maps.newConcurrentMap();
 
         ITEM_STACK_CACHE.put("deco_light", new MetaEditableItemStack(Material.STAINED_GLASS_PANE, (short) 7)
-                .openItemMetaEditor().setDisplayName("").saveChanges());
+                .openItemMetaEditor().setDisplayName(" ").saveChanges());
 
         ITEM_STACK_CACHE.put("deco_dark", new MetaEditableItemStack(Material.STAINED_GLASS_PANE, (short) 15)
-                .openItemMetaEditor().setDisplayName("").saveChanges());
+                .openItemMetaEditor().setDisplayName(" ").saveChanges());
     }
 }
