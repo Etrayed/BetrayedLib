@@ -149,6 +149,10 @@ public class AnvilWindowImpl implements AnvilWindow {
         alwaysReachableAnvilContainer.a(renameText);
     }
 
+    public AlwaysReachableAnvilContainer getContainer() {
+        return alwaysReachableAnvilContainer;
+    }
+
     public static final class AlwaysReachableAnvilContainer extends ContainerAnvil {
 
         private static final Field CONTAINER_ANVIL_L_FIELD;
