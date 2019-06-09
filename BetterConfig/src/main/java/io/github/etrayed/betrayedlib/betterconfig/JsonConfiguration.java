@@ -6,16 +6,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Etrayed
  */
 @SuppressWarnings("WeakerAccess")
-public class JsonConfiguration extends AbstractConfiguration<JsonElement, JsonElement > {
+public class JsonConfiguration extends AbstractConfiguration<JsonElement, JsonElement> {
 
     public static final Gson GSON;
 
@@ -24,12 +24,9 @@ public class JsonConfiguration extends AbstractConfiguration<JsonElement, JsonEl
     public JsonConfiguration(final File file) {
         super(file);
 
-        try {
-            final FileReader fileReader = new FileReader(file);
-
-            this.jsonObject = GSON.fromJson(fileReader, JsonObject.class);
-
-            fileReader.close();
+        try (final InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
+                Charset.forName("UTF-8"))) {
+            this.jsonObject = GSON.fromJson(inputStreamReader, JsonObject.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -49,24 +46,24 @@ public class JsonConfiguration extends AbstractConfiguration<JsonElement, JsonEl
     }
 
     @Override
-    public JsonElement getValue(String path) {
+    public JsonElement getValue(final String path) {
         return jsonObject.get(path);
     }
 
     @Override
-    public void setValue(String path, JsonElement input) {
+    public void setValue(final String path, final JsonElement input) {
         jsonObject.add(path, input);
 
         this.save();
     }
 
     @Override
-    public boolean hasValue(String path) {
+    public boolean hasValue(final String path) {
         return jsonObject.has(path);
     }
 
     @Override
-    public void removeValue(String path) {
+    public void removeValue(final String path) {
         jsonObject.remove(path);
 
         this.save();

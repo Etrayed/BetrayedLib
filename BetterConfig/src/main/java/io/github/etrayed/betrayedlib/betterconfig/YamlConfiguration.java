@@ -3,6 +3,7 @@ package io.github.etrayed.betrayedlib.betterconfig;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,15 +18,13 @@ public class YamlConfiguration extends AbstractConfiguration<Object, Object> {
 
     private final Map<String, Object> keyValues;
 
+    @SuppressWarnings("unchecked")
     public YamlConfiguration(final File file) {
         super(file);
 
-        try {
-            final FileReader fileReader = new FileReader(file);
-
-            keyValues = YAML.load(fileReader);
-
-            fileReader.close();
+        try (final InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
+                Charset.forName("UTF-8"))) {
+            this.keyValues = YAML.loadAs(inputStreamReader, Map.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -45,24 +44,24 @@ public class YamlConfiguration extends AbstractConfiguration<Object, Object> {
     }
 
     @Override
-    public Object getValue(String path) {
+    public Object getValue(final String path) {
         return keyValues.get(path);
     }
 
     @Override
-    public void setValue(String path, Object input) {
+    public void setValue(final String path, Object input) {
         keyValues.put(path, input);
 
         this.save();
     }
 
     @Override
-    public boolean hasValue(String path) {
+    public boolean hasValue(final String path) {
         return keyValues.containsKey(path);
     }
 
     @Override
-    public void removeValue(String path) {
+    public void removeValue(final String path) {
         keyValues.remove(path);
 
         this.save();
