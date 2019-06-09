@@ -4,14 +4,12 @@ import com.google.common.collect.Maps;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collections;
 import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author Etrayed
  */
-public class MetaEditableItemStack extends ItemStack {
+public class MetaEditableItemStack extends ItemStack implements Cloneable {
 
     public static final Map<String, MetaEditableItemStack> ITEM_STACK_CACHE;
 
@@ -37,6 +35,11 @@ public class MetaEditableItemStack extends ItemStack {
 
     public ItemMetaEditor openItemMetaEditor() {
         return new ItemMetaEditor(this);
+    }
+
+    @Override
+    public MetaEditableItemStack clone() {
+        return new MetaEditableItemStack(this);
     }
 
     static {
