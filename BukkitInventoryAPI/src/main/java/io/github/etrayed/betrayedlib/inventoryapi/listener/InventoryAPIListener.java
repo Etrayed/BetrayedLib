@@ -78,6 +78,8 @@ public class InventoryAPIListener implements Listener {
             if(onAnvilWindowClose != null) {
                 onAnvilWindowClose.accept(anvilWindow);
             }
+
+            inventoryCloseEvent.getInventory().clear();
         }
     }
 }
