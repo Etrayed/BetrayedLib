@@ -25,7 +25,8 @@ import java.util.function.Consumer;
  */
 public class ItemMetaEditor {
 
-    public static final LoreFormat EMPTY_LORE_FORMAT = new LoreFormat((char) -1, "");
+    public static final LoreFormat EMPTY_LORE_FORMAT = new LoreFormat((char) -1, ""),
+            STAR_LORE_FORMAT = new LoreFormat('\n', "§8× §7");
 
     private final MetaEditableItemStack metaEditableItemStack;
     private ItemMeta itemMeta;
