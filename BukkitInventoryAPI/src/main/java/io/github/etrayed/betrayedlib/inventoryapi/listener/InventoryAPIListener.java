@@ -2,6 +2,7 @@ package io.github.etrayed.betrayedlib.inventoryapi.listener;
 
 import io.github.etrayed.betrayedlib.inventoryapi.anvil.AnvilWindow;
 import io.github.etrayed.betrayedlib.inventoryapi.anvil.factory.AnvilWindowImpl;
+import io.github.etrayed.betrayedlib.inventoryapi.anvil.util.AnvilWindowClickDispatcher;
 import io.github.etrayed.betrayedlib.inventoryapi.inventory.ClickableInventory;
 import io.github.etrayed.betrayedlib.inventoryapi.inventory.CloseableInventory;
 import io.github.etrayed.betrayedlib.inventoryapi.inventory.InventoryConverter;
@@ -16,6 +17,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+
+import java.util.function.Consumer;
 
 /**
  * @author Etrayed
@@ -41,9 +44,13 @@ public class InventoryAPIListener implements Listener {
             }
 
             final AnvilWindow anvilWindow = ((AnvilWindowImpl.AlwaysReachableAnvilContainer) container).getAnvilWindow();
+            final AnvilWindowClickDispatcher anvilWindowClickDispatcher
+                    = ((AnvilWindowImpl) anvilWindow).onAnvilWindowClick;
 
-            ((AnvilWindowImpl) anvilWindow).onAnvilWindowClick.dispatchClick(anvilWindow,
-                    AnvilWindow.SlotType.getTypeByRawSlot(inventoryClickEvent.getSlot()), inventoryClickEvent);
+            if(anvilWindowClickDispatcher != null) {
+                anvilWindowClickDispatcher.dispatchClick(anvilWindow,
+                        AnvilWindow.SlotType.getTypeByRawSlot(inventoryClickEvent.getSlot()), inventoryClickEvent);
+            }
         }
     }
 
@@ -66,8 +73,11 @@ public class InventoryAPIListener implements Listener {
             }
 
             final AnvilWindow anvilWindow = ((AnvilWindowImpl.AlwaysReachableAnvilContainer) container).getAnvilWindow();
+            final Consumer<AnvilWindow> onAnvilWindowClose = ((AnvilWindowImpl) anvilWindow).onAnvilWindowClose;
 
-            ((AnvilWindowImpl) anvilWindow).onAnvilWindowClose.accept(anvilWindow);
+            if(onAnvilWindowClose != null) {
+                onAnvilWindowClose.accept(anvilWindow);
+            }
         }
     }
 }
