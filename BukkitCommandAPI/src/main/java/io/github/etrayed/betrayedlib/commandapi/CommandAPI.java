@@ -74,7 +74,7 @@ public class CommandAPI {
 
     public static void setNoPermissionMessage(final String noPermissionMessage) {
         final NoPermissionMessageChangeEvent noPermissionMessageChangeEvent
-                = new NoPermissionMessageChangeEvent(noPermissionMessage, Reflection.getCallerClass());
+                = new NoPermissionMessageChangeEvent(noPermissionMessage, getCallerClass());
 
         Bukkit.getPluginManager().callEvent(noPermissionMessageChangeEvent);
 
@@ -82,6 +82,16 @@ public class CommandAPI {
             return;
 
         CommandAPI.noPermissionMessage = noPermissionMessageChangeEvent.getMessage();
+    }
+
+    private static Class<?> getCallerClass() {
+        try {
+            return Class.forName(new Exception().getStackTrace()[2].getClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return CommandAPI.class;
     }
 
     public static String getNoPermissionMessage() {

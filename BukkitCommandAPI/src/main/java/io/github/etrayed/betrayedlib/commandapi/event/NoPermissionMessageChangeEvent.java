@@ -23,17 +23,45 @@ SOFTWARE.
 */
 package io.github.etrayed.betrayedlib.commandapi.event;
 
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 /**
  * @author Etrayed
  */
-public final class NoPermissionMessageChangeEvent extends MessageChangeEvent {
+public final class NoPermissionMessageChangeEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
+    private final String message;
+    private final Class<?> callerClass;
+
+    private boolean cancelled;
+
     public NoPermissionMessageChangeEvent(final String message, final Class<?> callerClass) {
-        super(message, callerClass);
+        super(false);
+
+        this.message = message;
+        this.callerClass = callerClass;
+    }
+
+    public final String getMessage() {
+        return message;
+    }
+
+    public final Class<?> getCallerClass() {
+        return callerClass;
+    }
+
+    @Override
+    public final boolean isCancelled() {
+        return cancelled;
+    }
+
+    @Override
+    public final void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     @Override
