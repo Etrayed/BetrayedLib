@@ -59,8 +59,9 @@ public class RemoteCommandExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if(commandMethod.blockConsoleCommandSenders() && !(commandSender instanceof Player))
+        if(commandMethod.blockConsoleCommandSenders() && !(commandSender instanceof Player)) {
             return false;
+        }
 
         if(!commandMethod.permission().isEmpty() && !commandSender.hasPermission(commandMethod.permission())) {
             if(commandMethod.useDefaultNoPermissionMessage()) {
@@ -83,11 +84,14 @@ public class RemoteCommandExecutor implements CommandExecutor {
 
         try {
             commandMethodExecutor.execute(commandMethodHolderInstance);
+
+            return true;
         } catch (ReflectiveOperationException e) {
             System.err.println("Error while executing command \"" + commandMethod.name() + "\" with the properties \""
                     + commandMethod + "\":");
             e.printStackTrace();
+
+            return false;
         }
-        return false;
     }
 }
