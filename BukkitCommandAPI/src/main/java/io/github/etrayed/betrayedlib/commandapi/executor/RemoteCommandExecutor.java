@@ -21,10 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package io.github.etrayed.betrayedlib.commandapi.execute;
+package io.github.etrayed.betrayedlib.commandapi.executor;
 
 import com.google.common.base.Preconditions;
-import io.github.etrayed.betrayedlib.commandapi.CommandAPI;
+import io.github.etrayed.betrayedlib.commandapi.BukkitCommandAPI;
 import io.github.etrayed.betrayedlib.commandapi.annotation.CommandMethod;
 
 import org.bukkit.command.Command;
@@ -65,7 +65,7 @@ public class RemoteCommandExecutor implements CommandExecutor {
 
         if(!commandMethod.permission().isEmpty() && !commandSender.hasPermission(commandMethod.permission())) {
             if(commandMethod.useDefaultNoPermissionMessage()) {
-                commandSender.sendMessage(CommandAPI.getNoPermissionMessage());
+                commandSender.sendMessage(BukkitCommandAPI.getNoPermissionMessage());
 
                 return false;
             } else {

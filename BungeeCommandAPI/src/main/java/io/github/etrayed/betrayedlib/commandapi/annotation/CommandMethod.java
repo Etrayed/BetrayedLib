@@ -23,7 +23,7 @@ SOFTWARE.
 */
 package io.github.etrayed.betrayedlib.commandapi.annotation;
 
-import io.github.etrayed.betrayedlib.commandapi.BukkitCommandAPI;
+import io.github.etrayed.betrayedlib.commandapi.BungeeCommandAPI;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -33,17 +33,17 @@ import java.lang.annotation.Target;
 /**
  *
  * You need to annotate your command method with {@link CommandMethod this annotation},
- * if you want to use the {@link BukkitCommandAPI}. <br>
+ * if you want to use the {@link BungeeCommandAPI}. <br>
  * <br>
  *     Important: <br>
  *     - You can your method like whatever you want! <br>
- *     - You can use the parameter types {@link org.bukkit.command.CommandSender CommandSender},
- *     {@link org.bukkit.command.Command Command}, {@link String} and {@link String}[] only and however you want!
+ *     - You can use the parameter types {@link net.md_5.bungee.api.CommandSender CommandSender},
+ *     {@link net.md_5.bungee.api.plugin.Command Command}, {@link String} and {@link String}[] only and however you want!
  *     - The {@link String} returns the used command label.
  *
  * @author Etrayed
  *
- * @see BukkitCommandAPI
+ * @see BungeeCommandAPI
  */
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -68,7 +68,7 @@ public @interface CommandMethod {
 
     /**
      *
-     * Should the {@link BukkitCommandAPI#getNoPermissionMessage() default "NoPermission" message} be used?
+     * Should the {@link BungeeCommandAPI#getNoPermissionMessage() default "NoPermission" message} be used?
      *
      * @return if it should.
      */
@@ -85,7 +85,7 @@ public @interface CommandMethod {
 
     /**
      *
-     * If true, the {@link org.bukkit.command.Command Command} can only be executed by a player.
+     * If true, the {@link net.md_5.bungee.api.plugin.Command Command} can only be executed by a player.
      *
      * @return if it should.
      */

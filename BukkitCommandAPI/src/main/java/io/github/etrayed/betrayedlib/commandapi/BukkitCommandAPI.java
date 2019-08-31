@@ -26,11 +26,10 @@ package io.github.etrayed.betrayedlib.commandapi;
 import io.github.etrayed.betrayedlib.commandapi.annotation.CommandMethod;
 import io.github.etrayed.betrayedlib.commandapi.annotation.CommandMethodResolver;
 import io.github.etrayed.betrayedlib.commandapi.event.NoPermissionMessageChangeEvent;
-import io.github.etrayed.betrayedlib.commandapi.execute.RemoteCommandExecutor;
+import io.github.etrayed.betrayedlib.commandapi.executor.RemoteCommandExecutor;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import sun.reflect.Reflection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -41,7 +40,7 @@ import java.util.function.BiConsumer;
 /**
  * @author Etrayed
  */
-public class CommandAPI {
+public class BukkitCommandAPI {
 
     private static final Constructor<?> REMOTE_COMMAND_EXECUTOR_CONSTRUCTOR;
 
@@ -81,7 +80,7 @@ public class CommandAPI {
         if(noPermissionMessageChangeEvent.isCancelled())
             return;
 
-        CommandAPI.noPermissionMessage = noPermissionMessageChangeEvent.getMessage();
+        BukkitCommandAPI.noPermissionMessage = noPermissionMessageChangeEvent.getMessage();
     }
 
     private static Class<?> getCallerClass() {
@@ -91,7 +90,7 @@ public class CommandAPI {
             e.printStackTrace();
         }
 
-        return CommandAPI.class;
+        return BukkitCommandAPI.class;
     }
 
     public static String getNoPermissionMessage() {
